@@ -18,7 +18,7 @@ def pos_in_word(parts_of_speech, word):
 	return None
 
 def play(parts_of_speech, sentence):
-	""" returns sentence with all parts_of_speech in it replaced with 'corgi' """
+	"""returns sentence with all parts_of_speech in it replaced with user input"""
 	list_of_words = sentence.split()
 	list_processed = []
 
@@ -27,7 +27,8 @@ def play(parts_of_speech, sentence):
 		if not pos_word:
 			list_processed.append(word)
 		else:
-			word = word.replace(pos_word, "corgi")
+			user_input = raw_input("give me a {}?  ".format(pos_word))
+			word = word.replace(pos_word, user_input)
 			list_processed.append(word)
 	
 	string_processed = " ".join(list_processed)
