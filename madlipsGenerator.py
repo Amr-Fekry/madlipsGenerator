@@ -3,15 +3,11 @@
 
 # final output: a sentence with POSs replaced with user inputs
 
-# hard-codes inputs for testing 
-parts_of_speech  = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
-sentence = """This is PLACE, no NOUN named PERSON, We have so many PLURALNOUN around here."""
-
 # pseudo code:
 # split sentence into a list of words
 # for each word, check if it contains a part of speech 
-# if it does, prompt user for replacement then add it to list2
 # if not add the word to list2
+# if it does, prompt user for replacement, replace it in word, add it to list2
 # convert list2 into a string
 
 def pos_in_word(parts_of_speech, word):
@@ -21,11 +17,23 @@ def pos_in_word(parts_of_speech, word):
 			return pos
 	return None
 
+def play(parts_of_speech, sentence):
+	""" returns sentence with all parts_of_speech in it replaced with 'corgi' """
+	list_of_words = sentence.split()
+	list_processed = []
 
-test_cases = ["NOUN", "FALSE", "<<@PERSON><", "PLURALNOUN"]
-parts_of_speech2 = ["PERSON", "PLURALNOUN", "NOUN"]
+	for word in list_of_words:
+		pos_word = pos_in_word(parts_of_speech, word)
+		if not pos_word:
+			list_processed.append(word)
+		else:
+			word = word.replace(pos_word, "corgi")
+			list_processed.append(word)
+	
+	string_processed = " ".join(list_processed)
+	return string_processed
 
-print pos_in_word(parts_of_speech2, test_cases[0])
-print pos_in_word(parts_of_speech2, test_cases[1])
-print pos_in_word(parts_of_speech2, test_cases[2])
-print pos_in_word(parts_of_speech2, test_cases[3])
+# testing 
+parts_of_speech  = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
+sentence = """This is PLACE, no NOUN named PERSON, We have so many PLURALNOUN around here."""
+print play(parts_of_speech, sentence)
