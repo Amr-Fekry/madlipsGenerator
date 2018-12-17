@@ -1,4 +1,4 @@
-# replacing the words [NOUN, VERB] in a string by iterating over the string
+# replacing the words [NOUN, VERB] in a string using replace() method
 
 from random import randint
 
@@ -19,31 +19,11 @@ def random_noun():
 	else:
 	    return "llama"
 
-# different algorithm (imitating replace() method):
+# using replace() method:
 
-def word_transformer(word):
-	"""returns a random noun/verb if word is NOUN/VERB. otherwise, first letter of word"""
-	if word == "NOUN":
-	    return random_noun()
-	elif word == "VERB":
-	    return random_verb()
-	else:
-	    return word[0]
-        
 def process_madlib(mad_lib):
 	"""takes a string and replaces [NOUN,VERB] with 1 of 2 nouns/verbs"""
-
-	processed = ""                                 # initialize empty string to store processed text 
-	index = 0                                      # start index to iterate over passed-in string
-	while index < len(mad_lib):                    # iterate over string 4-character word at a time
-	    word = mad_lib[index:index+4]              # initialize word to be the first 4 characters
-	    processed_word = word_transformer(word)    # transform word to a NOUN or a VERB or its first character
-	    processed += processed_word                # add transformed word to processed
-	    if len(processed_word) == 1:               # increment index according to transformed word length
-	        index += 1
-	    else:
-	        index += 4
-	return processed
+	return mad_lib.replace("NOUN",random_noun()).replace("VERB",random_verb())
 
 
 test_string_1 = "This is a good NOUN to use when you VERB your food"
