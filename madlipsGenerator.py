@@ -3,9 +3,12 @@
 sentence = "A NOUN went on a walk. It can VERB really fast."
 
 # slice sentence around NOUN and VERB
-substring1 = sentence[:2]
-substring2 = sentence[6:30]
-substring3 = sentence[34:]
+noun_position = sentence.find("NOUN")
+verb_position = sentence.find("VERB")
+
+substring1 = sentence[:noun_position]
+substring2 = sentence[noun_position+4 : verb_position]
+substring3 = sentence[verb_position+4 :]
 
 # replacements for NOUN and VERB
 noun_replacement = "book" 
