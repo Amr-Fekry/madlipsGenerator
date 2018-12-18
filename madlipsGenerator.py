@@ -27,7 +27,7 @@ def play(parts_of_speech, sentence):
 		if not pos_word:
 			list_processed.append(word)
 		else:
-			user_input = raw_input("give me a {}?  ".format(pos_word))
+			user_input = input("give me a {}?  ".format(pos_word))
 			word = word.replace(pos_word, user_input)
 			list_processed.append(word)
 	
@@ -37,4 +37,10 @@ def play(parts_of_speech, sentence):
 # testing 
 parts_of_speech  = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
 sentence = """This is PLACE, no NOUN named PERSON, We have so many PLURALNOUN around here."""
-print play(parts_of_speech, sentence)
+print (play(parts_of_speech, sentence))
+
+
+# raw_input vs input:
+# In Python 2, raw_input() returns a string, and input() tries to run the input as a Python expression. input() = eval(raw_input())
+
+# Since getting a string was almost always what you wanted, Python 3 does that with input(). And if you ever want the old behaviour, eval(input()) works.
