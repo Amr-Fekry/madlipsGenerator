@@ -22,7 +22,7 @@ def add_pos():
 	# clear pos_textfield 
 	pos_textfield.delete(1.0, END)
 	# insert (update) elements of pos_list after joining to a string
-	pos_textfield.insert(END, ", ".join(pos_list))
+	pos_textfield.insert(END, " , ".join(pos_list))
 	# disable editing of pos_textfield
 	pos_textfield.config(state="disabled")
 
@@ -38,7 +38,7 @@ def delete_pos():
 	# clear pos_textfield
 	pos_textfield.delete(1.0, END)
 	# insert (update) elements of pos_list after joining to a string
-	pos_textfield.insert(END, ", ".join(pos_list))
+	pos_textfield.insert(END, " , ".join(pos_list))
 	# disable editing of pos_textfield
 	pos_textfield.config(state="disabled")
 
@@ -91,22 +91,36 @@ Here is the current list of parts-of-speech that you can use:
 label1.pack()
 
 # add text field to display the initial list of PsOS
-pos_textfield = Text(design_frame, width=200, height=1)
-pos_textfield.insert(END, ", ".join(pos_list))
+pos_textfield = Text(design_frame, width=200, height=2)
+pos_textfield.insert(END, " , ".join(pos_list))
 pos_textfield.config(state="disabled") # make the textfield for read only
 pos_textfield.pack()
 
+# frame for add/delete buttons
+subframe1 = Frame(design_frame)
+subframe1.pack()
+
 # create add button that adds a POS to the list    
-add_entry = Entry(design_frame)
+add_entry = Entry(subframe1)
 add_entry.pack(side=LEFT)
-add_button = Button(design_frame, text="Add", command=add_pos)
+add_button = Button(subframe1, text="Add", command=add_pos)
 add_button.pack(side=LEFT)
 
 # create delete button that deletes a POS from the list    
-delete_entry = Entry(design_frame)
+delete_entry = Entry(subframe1)
 delete_entry.pack(side=LEFT)
-delete_button = Button(design_frame, text="Delete", command=delete_pos)
+delete_button = Button(subframe1, text="Delete", command=delete_pos)
 delete_button.pack(side=LEFT)
+
+# frame for add/delete instructions
+subframe2 = Frame(design_frame)
+subframe2.pack()
+
+explain_label2 = Label(design_frame, text="""*to add a word: write the word in the entry field (in all caps), then press Add 
+*to delete a word: copy the word from the list and paste it in the entry field, then press Delete
+""", wraplength=600, justify="left") # wraplength & justify
+explain_label2.pack()
+
 
 # a button to switch to the previous frame
 button2 = Button(design_frame, text="Back", command=switch2_intro_frame)
