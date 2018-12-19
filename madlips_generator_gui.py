@@ -11,13 +11,27 @@ def switch2_intro_frame():
 	intro_frame.pack()
 
 def add_pos():
-	# get pos from entry
+	# get pos from corresponding entry
 	pos = add_entry.get()
+	# clear the entry for better appearance
+	add_entry.delete(0,END)
 	# append it to the list
 	pos_list.append(pos)
+	# clear pos_textfield 
+	pos_textfield.delete(1.0, END)
+	# insert (update) elements of pos_list after joining to a string
+	pos_textfield.insert(END, ", ".join(pos_list))
+
+def delete_pos():
+	# get pos from corresponding entry
+	pos = delete_entry.get()
+	# clear the entry for better appearance
+	delete_entry.delete(0,END)
+	# append it to the list
+	pos_list.remove(pos)
 	# clear pos_textfield
 	pos_textfield.delete(1.0, END)
-	# insert elements of pos_list after joining to a string
+	# insert (update) elements of pos_list after joining to a string
 	pos_textfield.insert(END, ", ".join(pos_list))
 
 
@@ -78,6 +92,12 @@ add_entry = Entry(design_frame)
 add_entry.pack(side=LEFT)
 add_button = Button(design_frame, text="Add", command=add_pos)
 add_button.pack(side=LEFT)
+
+# create delete button that deletes a POS from the list    
+delete_entry = Entry(design_frame)
+delete_entry.pack(side=LEFT)
+delete_button = Button(design_frame, text="Delete", command=delete_pos)
+delete_button.pack(side=LEFT)
 
 # a button to switch to the previous frame
 button2 = Button(design_frame, text="Back", command=switch2_intro_frame)
