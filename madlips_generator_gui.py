@@ -4,6 +4,10 @@ def switch2_design_frame():
 	intro_frame.pack_forget()
 	design_frame.pack()
 
+def switch2_intro_frame():
+	design_frame.pack_forget()
+	intro_frame.pack()
+
 
 # initialize a window
 window = Tk()
@@ -17,7 +21,8 @@ intro_frame = Frame(window)
 intro_frame.pack()
 
 intro_label = Label(intro_frame, text="""
-	Welcome to Madlips Generator game \n
+Welcome to Madlips Generator game
+
 It takes two players to play this game: a 'game designer' and a 'game player'""")
 intro_label.pack()
 
@@ -32,6 +37,7 @@ Finally both can see the final result.
 """, wraplength=480, justify="left") # wraplength & justify
 explain_label.pack()
 
+# a button to switch to the next frame
 button1 = Button(intro_frame, text="Got it", command=switch2_design_frame)
 button1.pack()
 
@@ -39,16 +45,20 @@ button1.pack()
 
 design_frame = Frame(window)
 
+# add parts of speech
+pos_list = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
+
+pos_label = Label(design_frame, text="""
+Designer turn
+
+Here is the current list of parts-of-speech that you can use:
+
+""" + ", ".join(pos_list))
+pos_label.pack()
 
 
-
-
-
-
-
-
-
-
+button2 = Button(design_frame, text="Back", command=switch2_intro_frame)
+button2.pack()
 
 
 
