@@ -47,7 +47,7 @@ def delete_pos():
 window = Tk()
 
 window.title("Madlips Generator")
-window.geometry("600x300")
+window.geometry("600x400")
 
 #### 1- INTRODUCTION FRAME:
 
@@ -117,9 +117,14 @@ subframe2 = Frame(design_frame)
 subframe2.pack()
 
 explain_label2 = Label(design_frame, text="""*to add a word: write the word in the entry field (in all caps), then press Add 
-*to delete a word: copy the word from the list and paste it in the entry field, then press Delete
-""", wraplength=600, justify="left") # wraplength & justify
+*to delete a word: copy the word from the list and paste it in the entry field, then press Delete""", wraplength=600, justify="left")
 explain_label2.pack()
+
+# make a textfield for the sentence
+sentence_label = Label(design_frame, text="Enter your sentence with the parts of speech below:")
+sentence_label.pack()
+sentence_field = Text(design_frame, width=100, height=10)
+sentence_field.pack()
 
 
 # a button to switch to the previous frame
