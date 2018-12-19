@@ -17,10 +17,14 @@ def add_pos():
 	add_entry.delete(0,END)
 	# append it to the list
 	pos_list.append(pos)
+	# enable editing of pos_textfield
+	pos_textfield.config(state="normal")
 	# clear pos_textfield 
 	pos_textfield.delete(1.0, END)
 	# insert (update) elements of pos_list after joining to a string
 	pos_textfield.insert(END, ", ".join(pos_list))
+	# disable editing of pos_textfield
+	pos_textfield.config(state="disabled")
 
 def delete_pos():
 	# get pos from corresponding entry
@@ -29,10 +33,14 @@ def delete_pos():
 	delete_entry.delete(0,END)
 	# append it to the list
 	pos_list.remove(pos)
+	# enable editing of pos_textfield
+	pos_textfield.config(state="normal")
 	# clear pos_textfield
 	pos_textfield.delete(1.0, END)
 	# insert (update) elements of pos_list after joining to a string
 	pos_textfield.insert(END, ", ".join(pos_list))
+	# disable editing of pos_textfield
+	pos_textfield.config(state="disabled")
 
 
 # initialize a window
@@ -85,6 +93,7 @@ label1.pack()
 # add text field to display the initial list of PsOS
 pos_textfield = Text(design_frame, width=200, height=1)
 pos_textfield.insert(END, ", ".join(pos_list))
+pos_textfield.config(state="disabled") # make the textfield for read only
 pos_textfield.pack()
 
 # create add button that adds a POS to the list    
