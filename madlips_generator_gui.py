@@ -1,5 +1,7 @@
 from tkinter import *
 
+#### FUNCTIONS:
+
 def switch2_design_frame():
 	intro_frame.pack_forget()
 	design_frame.pack()
@@ -8,6 +10,16 @@ def switch2_intro_frame():
 	design_frame.pack_forget()
 	intro_frame.pack()
 
+def add_pos():
+	# get pos from entry
+	pos = add_entry.get()
+	# append it to the list
+	pos_list.append(pos)
+	# clear pos_textfield
+	pos_textfield.delete(1.0, END)
+	# insert elements of pos_list after joining to a string
+	pos_textfield.insert(END, ", ".join(pos_list))
+
 
 # initialize a window
 window = Tk()
@@ -15,7 +27,7 @@ window = Tk()
 window.title("Madlips Generator")
 window.geometry("600x300")
 
-#### 1- INTRODUCTION:
+#### 1- INTRODUCTION FRAME:
 
 intro_frame = Frame(window)
 intro_frame.pack()
@@ -41,24 +53,35 @@ explain_label.pack()
 button1 = Button(intro_frame, text="Got it", command=switch2_design_frame)
 button1.pack()
 
-#### 2- DESIGNER STAGE:
+#### 2- DESIGNER STAGE FRAME:
 
+# create a new frame
 design_frame = Frame(window)
 
 # add parts of speech
 pos_list = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
 
-pos_label = Label(design_frame, text="""
+label1 = Label(design_frame, text="""
 Designer turn
 
 Here is the current list of parts-of-speech that you can use:
+""")
+label1.pack()
 
-""" + ", ".join(pos_list))
-pos_label.pack()
+# add text field to display the initial list of PsOS
+pos_textfield = Text(design_frame, width=200, height=1)
+pos_textfield.insert(END, ", ".join(pos_list))
+pos_textfield.pack()
 
+# create add button that adds a POS to the list    
+add_entry = Entry(design_frame)
+add_entry.pack(side=LEFT)
+add_button = Button(design_frame, text="Add", command=add_pos)
+add_button.pack(side=LEFT)
 
+# a button to switch to the previous frame
 button2 = Button(design_frame, text="Back", command=switch2_intro_frame)
-button2.pack()
+button2.pack(side=BOTTOM)
 
 
 
