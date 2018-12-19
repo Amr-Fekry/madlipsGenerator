@@ -1,10 +1,17 @@
 from tkinter import *
 
+def switch2_design_frame():
+	intro_frame.pack_forget()
+	design_frame.pack()
+
+
 # initialize a window
 window = Tk()
 
 window.title("Madlips Generator")
 window.geometry("600x300")
+
+#### 1- INTRODUCTION:
 
 intro_frame = Frame(window)
 intro_frame.pack()
@@ -24,5 +31,25 @@ After the sentence is created, it is the game player's turn to play the game. He
 Finally both can see the final result.
 """, wraplength=480, justify="left") # wraplength & justify
 explain_label.pack()
+
+button1 = Button(intro_frame, text="Got it", command=switch2_design_frame)
+button1.pack()
+
+#### 2- DESIGNER STAGE:
+
+design_frame = Frame(window)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 window.mainloop()
