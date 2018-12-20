@@ -56,47 +56,63 @@ def pos_in_word(parts_of_speech, word):
 def frame2_Play_btn():
 	# get sentence from sentence_field
 	sentence = sentence_field.get(1.0, END)
-	switch_frame3()
-	# separate words of the sentence
+	# list of separate words of the sentence
+	global list_of_words
 	list_of_words = sentence.split()
-	# replacements entered by user
-	list_of_replacements = []
-	# words of the sentence after processing
-	list_processed = []
-
+	# make a subframe to contain widgets to be created
 	global play_subframe 
 	play_subframe = Frame(play_frame)
 	play_subframe.pack()
 
+	global list_of_widgets
+	list_of_widgets = []
+
+	# iterate over list_of_word and entry widgets for each pos detected
 	for word in list_of_words:
 		pos_word = pos_in_word(pos_list, word)
-		if not pos_word:
-			list_processed.append(word)
-		else:
-			# create a label and an entry field on play frame
-			Label(play_subframe, text="{}:".format(pos_word)).pack()
-			Entry(play_subframe).pack()
+		if pos_word:
+			# create a label and an entry field on subframe and add them to a list
+			list_of_widgets.append(Label(play_subframe, text="{}:".format(pos_word)))
+			list_of_widgets.append(Entry(play_subframe))
+
+	# pack all widgets in the list
+	for widget in list_of_widgets:
+		widget.pack()
+
+	switch_frame3()
 
 def frame3_Back_btn():
 	# clear sentence_field
 	sentence_field.delete(1.0, END)
+	# destroy subframe and all widgets in it to prepare for a new one
 	play_subframe.destroy()
 	play_frame.pack_forget()
 	design_frame.pack()
-	
-"""			
-			word = word.replace(pos_word, user_input)
-			list_processed.append(word)
-	
-	string_processed = " ".join(list_processed)
-	return string_processed
-"""
+
+def frame3_Done_btn():
+	# get user inputs from entries
+	list_of_inputs = []
+	for entry in list_of_widgets[1::2]: # get odd positions only list[start:end:step]
+		list_of_inputs.append(entry.get())
+	# words of the sentence after processing 
+	list_processed = []
+
+	for index, word in enumerate(list_of_words):
+		pos_word = pos_in_word(pos_list, word)
+		if pos_word:
+			word = word.replace(pos_word, list_of_inputs[0])
+			list_of_words[index] = word
+			del list_of_inputs[0]
+
+	string_processed = " ".join(list_of_words)
+	print(string_processed)
+
 
 # initialize a window
 window = Tk()
 
 window.title("Madlips Generator")
-window.geometry("600x400")
+window.geometry("600x450")
 
 #### 1- INTRODUCTION FRAME:
 
@@ -187,12 +203,19 @@ play_button.pack()
 
 # create a new frame
 play_frame = Frame(window)
-Label(play_frame, text="give me a ").pack()
+Label(play_frame, text="""
+Player turn
 
-# a button to switch to the next frame
+give an example for each part of speech below:
+""").pack()
+
+# a button to switch to the previous frame
 button3 = Button(play_frame, text="Back", command=frame3_Back_btn)
-button3.pack()
+button3.pack(side=BOTTOM)
 
+# switch to next frame, show final sentence 
+button4 = Button(play_frame, text="Done", command=frame3_Done_btn)
+button4.pack(side=BOTTOM)
 
 
 
