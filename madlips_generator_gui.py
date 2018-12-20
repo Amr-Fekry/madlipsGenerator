@@ -2,19 +2,11 @@ from tkinter import *
 
 #### FUNCTIONS:
 
-def switch2_design_frame():
+def frame1_Gotit_btn():
 	intro_frame.pack_forget()
 	design_frame.pack()
 
-def switch2_intro_frame():
-	design_frame.pack_forget()
-	intro_frame.pack()
-
-def switch2_play_frame():
-	design_frame.pack_forget()
-	play_frame.pack()
-
-def add_pos():
+def frame2_Add_btn():
 	# get pos from corresponding entry
 	pos = add_entry.get()
 	# clear the entry for better appearance
@@ -30,7 +22,7 @@ def add_pos():
 	# disable editing of pos_textfield
 	pos_textfield.config(state="disabled")
 
-def delete_pos():
+def frame2_Delete_btn():
 	# get pos from corresponding entry
 	pos = delete_entry.get()
 	# clear the entry for better appearance
@@ -46,6 +38,14 @@ def delete_pos():
 	# disable editing of pos_textfield
 	pos_textfield.config(state="disabled")
 
+def frame2_Back_btn():
+	design_frame.pack_forget()
+	intro_frame.pack()
+
+def switch_frame3():
+	design_frame.pack_forget()
+	play_frame.pack()
+
 def pos_in_word(parts_of_speech, word):
 	"""returns the part of speech if it is a substring in the word. otherwise, None"""
 	for pos in parts_of_speech:
@@ -53,20 +53,37 @@ def pos_in_word(parts_of_speech, word):
 			return pos
 	return None
 
-def play_button_clicked():
+def frame2_Play_btn():
+	# get sentence from sentence_field
 	sentence = sentence_field.get(1.0, END)
-	switch2_play_frame()
+	switch_frame3()
+	# separate words of the sentence
 	list_of_words = sentence.split()
+	# replacements entered by user
 	list_of_replacements = []
+	# words of the sentence after processing
 	list_processed = []
+
+	global play_subframe 
+	play_subframe = Frame(play_frame)
+	play_subframe.pack()
 
 	for word in list_of_words:
 		pos_word = pos_in_word(pos_list, word)
 		if not pos_word:
 			list_processed.append(word)
 		else:
-			Label(play_frame, text="{}:".format(pos_word)).pack()
-			Entry(play_frame).pack()
+			# create a label and an entry field on play frame
+			Label(play_subframe, text="{}:".format(pos_word)).pack()
+			Entry(play_subframe).pack()
+
+def frame3_Back_btn():
+	# clear sentence_field
+	sentence_field.delete(1.0, END)
+	play_subframe.destroy()
+	play_frame.pack_forget()
+	design_frame.pack()
+	
 """			
 			word = word.replace(pos_word, user_input)
 			list_processed.append(word)
@@ -104,7 +121,7 @@ Finally both can see the final result.
 explain_label.pack()
 
 # a button to switch to the next frame
-button1 = Button(intro_frame, text="Got it", command=switch2_design_frame)
+button1 = Button(intro_frame, text="Got it", command=frame1_Gotit_btn)
 button1.pack()
 
 #### 2- DESIGNER STAGE FRAME:
@@ -135,13 +152,13 @@ subframe1.pack()
 # create add button that adds a POS to the list    
 add_entry = Entry(subframe1)
 add_entry.pack(side=LEFT)
-add_button = Button(subframe1, text="Add", command=add_pos)
+add_button = Button(subframe1, text="Add", command=frame2_Add_btn)
 add_button.pack(side=LEFT)
 
 # create delete button that deletes a POS from the list    
 delete_entry = Entry(subframe1)
 delete_entry.pack(side=LEFT)
-delete_button = Button(subframe1, text="Delete", command=delete_pos)
+delete_button = Button(subframe1, text="Delete", command=frame2_Delete_btn)
 delete_button.pack(side=LEFT)
 
 # frame for add/delete instructions
@@ -158,8 +175,12 @@ sentence_label.pack()
 sentence_field = Text(design_frame, width=100, height=10)
 sentence_field.pack()
 
+# a button to switch to the previous frame
+button2 = Button(design_frame, text="Back", command=frame2_Back_btn)
+button2.pack(side=BOTTOM)
+
 # a button to recieve the sentence and play
-play_button = Button(design_frame, text="Play", command=play_button_clicked)
+play_button = Button(design_frame, text="Play", command=frame2_Play_btn)
 play_button.pack()
 
 #### 3- PLAYER STAGE FRAME:
@@ -168,9 +189,10 @@ play_button.pack()
 play_frame = Frame(window)
 Label(play_frame, text="give me a ").pack()
 
-# a button to switch to the previous frame
-button2 = Button(design_frame, text="Back", command=switch2_intro_frame)
-button2.pack(side=BOTTOM)
+# a button to switch to the next frame
+button3 = Button(play_frame, text="Back", command=frame3_Back_btn)
+button3.pack()
+
 
 
 
