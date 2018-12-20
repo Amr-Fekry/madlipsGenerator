@@ -56,6 +56,8 @@ def pos_in_word(parts_of_speech, word):
 def frame2_Play_btn():
 	# get sentence from sentence_field
 	sentence = sentence_field.get(1.0, END)
+	# clear sentence_field
+	sentence_field.delete(1.0, END)
 	# list of separate words of the sentence
 	global list_of_words
 	list_of_words = sentence.split()
@@ -82,11 +84,14 @@ def frame2_Play_btn():
 	switch_frame3()
 
 def frame3_Back_btn():
-	# clear sentence_field
-	sentence_field.delete(1.0, END)
 	# destroy subframe and all widgets in it to prepare for a new one
 	play_subframe.destroy()
 	play_frame.pack_forget()
+	design_frame.pack()
+
+def frame4_Playagian_btn():
+	play_subframe.destroy()
+	result_frame.destroy()
 	design_frame.pack()
 
 def make_frame4(string_processed):
@@ -102,6 +107,8 @@ def make_frame4(string_processed):
 	label = Label(result_frame, image=image)
 	label.image = image # MUST keep a reference for the image to appear
 	label.pack()
+	# add a button to reset for a new game
+	Button(result_frame, text="Play again", command=frame4_Playagian_btn).pack()
 
 
 def switch_frame4():
@@ -226,7 +233,7 @@ play_frame = Frame(window)
 Label(play_frame, text="""
 Player turn
 
-give an example for each part of speech below:
+Give an example for each part of speech below:
 """).pack()
 
 # a button to switch to the previous frame
