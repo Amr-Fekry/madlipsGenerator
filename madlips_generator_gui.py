@@ -89,6 +89,21 @@ def frame3_Back_btn():
 	play_frame.pack_forget()
 	design_frame.pack()
 
+def make_frame4(string_processed):
+	# make frame
+	global result_frame
+	result_frame = Frame(window)
+	# add final sentence
+	Label(result_frame, text="SENTENCE:").pack()
+	Label(result_frame, text="{ " + string_processed + " }").pack()
+	# add image widget
+	image = PhotoImage(file="chandler.png")
+	#image = ImageTk.PhotoImage(Image.open("chandler.jpg")) # for jpg images and: from PIL import Image, ImageTk
+	label = Label(result_frame, image=image)
+	label.image = image # MUST keep a reference for the image to appear
+	label.pack()
+
+
 def switch_frame4():
 	play_frame.pack_forget()
 	result_frame.pack()
@@ -110,11 +125,7 @@ def frame3_Done_btn():
 
 	string_processed = " ".join(list_of_words)
 
-	global result_frame
-	result_frame = Frame(window)
-
-	Label(result_frame, text=string_processed).pack(side=BOTTOM)
-	
+	make_frame4(string_processed)
 	switch_frame4()
 
 # initialize a window
