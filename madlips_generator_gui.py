@@ -89,6 +89,10 @@ def frame3_Back_btn():
 	play_frame.pack_forget()
 	design_frame.pack()
 
+def switch_frame4():
+	play_frame.pack_forget()
+	result_frame.pack()
+
 def frame3_Done_btn():
 	# get user inputs from entries
 	list_of_inputs = []
@@ -105,8 +109,13 @@ def frame3_Done_btn():
 			del list_of_inputs[0]
 
 	string_processed = " ".join(list_of_words)
-	print(string_processed)
 
+	global result_frame
+	result_frame = Frame(window)
+
+	Label(result_frame, text=string_processed).pack(side=BOTTOM)
+	
+	switch_frame4()
 
 # initialize a window
 window = Tk()
