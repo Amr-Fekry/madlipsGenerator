@@ -10,6 +10,10 @@ def switch2_intro_frame():
 	design_frame.pack_forget()
 	intro_frame.pack()
 
+def switch2_play_frame():
+	design_frame.pack_forget()
+	play_frame.pack()
+
 def add_pos():
 	# get pos from corresponding entry
 	pos = add_entry.get()
@@ -42,6 +46,34 @@ def delete_pos():
 	# disable editing of pos_textfield
 	pos_textfield.config(state="disabled")
 
+def pos_in_word(parts_of_speech, word):
+	"""returns the part of speech if it is a substring in the word. otherwise, None"""
+	for pos in parts_of_speech:
+		if pos in word:
+			return pos
+	return None
+
+def play_button_clicked():
+	sentence = sentence_field.get(1.0, END)
+	switch2_play_frame()
+	list_of_words = sentence.split()
+	list_of_replacements = []
+	list_processed = []
+
+	for word in list_of_words:
+		pos_word = pos_in_word(pos_list, word)
+		if not pos_word:
+			list_processed.append(word)
+		else:
+			Label(play_frame, text="{}:".format(pos_word)).pack()
+			Entry(play_frame).pack()
+"""			
+			word = word.replace(pos_word, user_input)
+			list_processed.append(word)
+	
+	string_processed = " ".join(list_processed)
+	return string_processed
+"""
 
 # initialize a window
 window = Tk()
@@ -126,6 +158,15 @@ sentence_label.pack()
 sentence_field = Text(design_frame, width=100, height=10)
 sentence_field.pack()
 
+# a button to recieve the sentence and play
+play_button = Button(design_frame, text="Play", command=play_button_clicked)
+play_button.pack()
+
+#### 3- PLAYER STAGE FRAME:
+
+# create a new frame
+play_frame = Frame(window)
+Label(play_frame, text="give me a ").pack()
 
 # a button to switch to the previous frame
 button2 = Button(design_frame, text="Back", command=switch2_intro_frame)

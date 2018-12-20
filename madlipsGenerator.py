@@ -34,6 +34,7 @@ def play(parts_of_speech, sentence):
 	string_processed = " ".join(list_processed)
 	return string_processed
 
+
 # testing 
 parts_of_speech  = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"]
 sentence = """This is PLACE, no NOUN named PERSON, We have so many PLURALNOUN around here."""
