@@ -13,6 +13,7 @@ class Window(QtWidgets.QMainWindow):
 
 		# add a stacked widget for multiple pages
 		self.pages = QtWidgets.QStackedWidget()
+
 		# set the stacked widget as the central
 		self.setCentralWidget(self.pages)
 
@@ -42,6 +43,7 @@ class Window(QtWidgets.QMainWindow):
 		self.intro_label2.setWordWrap(True)
 		# C) gotit_btn
 		self.gotit_btn = QtWidgets.QPushButton("Got it")
+		self.gotit_btn.clicked.connect(self.page1_gotit_btn)
 		#self.gotit_btn.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
 		# add widgets to layout
@@ -96,6 +98,7 @@ class Window(QtWidgets.QMainWindow):
 		self.sentence_entry.setFixedSize(500, 100)
 		# J) back_btn
 		self.back_btn = QtWidgets.QPushButton("Back")
+		self.back_btn.clicked.connect(self.page2_back_btn)
 		# K) play_btn
 		self.play_btn = QtWidgets.QPushButton("Play")
 		# L) sub_Hlayout2 
@@ -111,11 +114,16 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2.addWidget(self.sentence_entry, 4, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout2, 5, 0, QtCore.Qt.AlignCenter) # layout
 
-		# show page2
-		#self.pages.setCurrentIndex(1)
-
 
 	# ________________________________________METHODS_________________________________________
+
+	def page1_gotit_btn(self):
+		self.pages.setCurrentIndex(1)
+
+	def page2_back_btn(self):
+		self.pages.setCurrentIndex(0)
+
+
 
 
 def main():
