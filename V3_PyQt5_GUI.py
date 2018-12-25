@@ -1,5 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtGui, QtCore
+import sip
+
 
 class Window(QtWidgets.QMainWindow):
 
@@ -19,6 +21,7 @@ class Window(QtWidgets.QMainWindow):
 
 		self.page_one()
 		self.page_two()
+		self.page_three()
 
 	# ________________________________________PAGES_________________________________________
 
@@ -46,7 +49,7 @@ class Window(QtWidgets.QMainWindow):
 		self.gotit_btn.clicked.connect(self.page1_gotit_btn)
 		#self.gotit_btn.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 
-		# add widgets to layout
+		# # add widgets/layouts to main layout
 		self.layout.addWidget(self.intro_label1, 0, 0, QtCore.Qt.AlignCenter) 
 		self.layout.addWidget(self.intro_label2, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout.addWidget(self.gotit_btn, 2, 0, QtCore.Qt.AlignCenter) # for grid layout: (widget, row, column, alignment in cell)
@@ -59,7 +62,7 @@ class Window(QtWidgets.QMainWindow):
 
 		# create a widget for the page and set a layout to it
 		self.page2 = QtWidgets.QWidget()
-		self.pages.addWidget(self.page2)
+		self.pages.addWidget(self.page2) # add to the stacked widget
 		self.layout2 = QtWidgets.QGridLayout()
 		self.layout2.setAlignment(QtCore.Qt.AlignCenter)
 		self.page2.setLayout(self.layout2)
@@ -84,7 +87,7 @@ class Window(QtWidgets.QMainWindow):
 		self.delete_entry.setFixedSize(100, 30)
 		# F) delete_btn
 		self.delete_btn = QtWidgets.QPushButton("Delete")
-		# G) sub_Hlayout1 
+		# G) sub_Hlayout1
 		self.sub_Hlayout1 = QtWidgets.QHBoxLayout()
 		# add C, D, E, F to layout G
 		self.sub_Hlayout1.addWidget(self.add_entry, False, QtCore.Qt.AlignCenter) # for horizontal layout: (widget, stretch, alignment)
@@ -96,17 +99,17 @@ class Window(QtWidgets.QMainWindow):
 		# I) sentence_entry
 		self.sentence_entry = QtWidgets.QTextEdit()
 		self.sentence_entry.setFixedSize(500, 100)
-		# J) back_btn
+		# J) play_btn
+		self.play_btn = QtWidgets.QPushButton("Play")
+		# K) back_btn
 		self.back_btn = QtWidgets.QPushButton("Back")
 		self.back_btn.clicked.connect(self.page2_back_btn)
-		# K) play_btn
-		self.play_btn = QtWidgets.QPushButton("Play")
 		# L) sub_Hlayout2 
 		self.sub_Hlayout2 = QtWidgets.QHBoxLayout()
 		# add J, K to the layout L
 		self.sub_Hlayout2.addWidget(self.play_btn, False, QtCore.Qt.AlignCenter)
 		self.sub_Hlayout2.addWidget(self.back_btn, False, QtCore.Qt.AlignCenter)
-		# add A, B, H, I to the main layout
+		# # add widgets/layouts to main layout
 		self.layout2.addWidget(self.top_label, 0, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addWidget(self.pos_screen, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout1, 2, 0, QtCore.Qt.AlignCenter) # layout
@@ -114,6 +117,37 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2.addWidget(self.sentence_entry, 4, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout2, 5, 0, QtCore.Qt.AlignCenter) # layout
 
+
+	def page_three(self):
+
+		# create a widget for the page and set a layout to it
+		self.page3 = QtWidgets.QWidget()
+		self.pages.addWidget(self.page3) # add to the stacked widget
+		self.layout3 = QtWidgets.QGridLayout()
+		self.layout3.setAlignment(QtCore.Qt.AlignCenter)
+		self.page3.setLayout(self.layout3)
+
+		# make widgets of the page
+		# A) top_label2
+		self.top_label2 = QtWidgets.QLabel("""Player turn\n\nGive an example for each part of speech below:\n""")
+		self.top_label2.setAlignment(QtCore.Qt.AlignCenter)
+		# B) form_layout
+		self.form_layout = QtWidgets.QFormLayout()
+		# C) done_btn
+		self.done_btn = QtWidgets.QPushButton("Done")
+		# D) back_btn2
+		self.back_btn2 = QtWidgets.QPushButton("Back")		
+		# E) sub_Hlayout3
+		self.sub_Hlayout3 = QtWidgets.QHBoxLayout()
+		# add C, D to the layout E
+		self.sub_Hlayout3.addWidget(self.done_btn, False, QtCore.Qt.AlignCenter)
+		self.sub_Hlayout3.addWidget(self.back_btn2, False, QtCore.Qt.AlignCenter)
+		# add widgets/layouts to main layout
+		self.layout3.addWidget(self.top_label2, 0, 0, QtCore.Qt.AlignCenter)
+		self.layout3.addLayout(self.form_layout, 1, 0, QtCore.Qt.AlignCenter)
+		self.layout3.addLayout(self.sub_Hlayout3, 2, 0, QtCore.Qt.AlignCenter)
+
+		self.pages.setCurrentIndex(2)
 
 	# ________________________________________METHODS_________________________________________
 
