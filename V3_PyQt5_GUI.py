@@ -101,6 +101,7 @@ class Window(QtWidgets.QMainWindow):
 		self.sentence_entry.setFixedSize(500, 100)
 		# J) play_btn
 		self.play_btn = QtWidgets.QPushButton("Play")
+		self.play_btn.clicked.connect(self.page2_play_btn)
 		# K) back_btn
 		self.back_btn = QtWidgets.QPushButton("Back")
 		self.back_btn.clicked.connect(self.page2_back_btn)
@@ -136,7 +137,8 @@ class Window(QtWidgets.QMainWindow):
 		# C) done_btn
 		self.done_btn = QtWidgets.QPushButton("Done")
 		# D) back_btn2
-		self.back_btn2 = QtWidgets.QPushButton("Back")		
+		self.back_btn2 = QtWidgets.QPushButton("Back")
+		self.back_btn2.clicked.connect(self.page3_back_btn)
 		# E) sub_Hlayout3
 		self.sub_Hlayout3 = QtWidgets.QHBoxLayout()
 		# add C, D to the layout E
@@ -147,7 +149,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout3.addLayout(self.form_layout, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout3.addLayout(self.sub_Hlayout3, 2, 0, QtCore.Qt.AlignCenter)
 
-		self.pages.setCurrentIndex(2)
 
 	# ________________________________________METHODS_________________________________________
 
@@ -157,7 +158,13 @@ class Window(QtWidgets.QMainWindow):
 	def page2_back_btn(self):
 		self.pages.setCurrentIndex(0)
 
+	def page2_play_btn(self):
+		self.pages.setCurrentIndex(2)
 
+	def page3_back_btn(self):
+		self.pages.setCurrentIndex(1)
+
+	# ________________________________________END_________________________________________
 
 
 def main():
