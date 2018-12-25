@@ -11,6 +11,11 @@ class Window(QtWidgets.QMainWindow):
 		self.setWindowTitle("Madlips Generator")
 		self.setWindowIcon(QtGui.QIcon("smile.png"))
 
+		# add a stacked widget for multiple pages
+		self.pages = QtWidgets.QStackedWidget()
+		# set the stacked widget as the central
+		self.setCentralWidget(self.pages)
+
 		self.page_one()
 		self.page_two()
 
@@ -20,6 +25,7 @@ class Window(QtWidgets.QMainWindow):
 
 		# create a widget for the page and set a layout to it
 		self.page1 = QtWidgets.QWidget()
+		self.pages.addWidget(self.page1) # add to the stacked widget
 		self.layout = QtWidgets.QGridLayout()
 		self.layout.setAlignment(QtCore.Qt.AlignCenter) # alignment of cells inside the layout. Center = (HCenter + VCenter)
 		self.page1.setLayout(self.layout)
@@ -43,14 +49,15 @@ class Window(QtWidgets.QMainWindow):
 		self.layout.addWidget(self.intro_label2, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout.addWidget(self.gotit_btn, 2, 0, QtCore.Qt.AlignCenter) # for grid layout: (widget, row, column, alignment in cell)
 		
-		# show page1 as centralwidget
-		self.setCentralWidget(self.page1)
+		# show page1
+		self.pages.setCurrentIndex(0)
 
 
 	def page_two(self):
 
 		# create a widget for the page and set a layout to it
 		self.page2 = QtWidgets.QWidget()
+		self.pages.addWidget(self.page2)
 		self.layout2 = QtWidgets.QGridLayout()
 		self.layout2.setAlignment(QtCore.Qt.AlignCenter)
 		self.page2.setLayout(self.layout2)
@@ -104,8 +111,9 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2.addWidget(self.sentence_entry, 4, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout2, 5, 0, QtCore.Qt.AlignCenter) # layout
 
-		# show page1 as centralwidget
-		#self.setCentralWidget(self.page2)
+		# show page2
+		#self.pages.setCurrentIndex(1)
+
 
 	# ________________________________________METHODS_________________________________________
 
