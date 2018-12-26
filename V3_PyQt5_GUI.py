@@ -23,7 +23,6 @@ class Window(QtWidgets.QMainWindow):
 		self.page_two()
 		self.page_three()
 		self.page_four()
-		self.pages.setCurrentIndex(3)
 
 	# ________________________________________PAGES_________________________________________
 
@@ -141,6 +140,7 @@ class Window(QtWidgets.QMainWindow):
 		self.form_layout.setAlignment(QtCore.Qt.AlignCenter)
 		# C) done_btn
 		self.done_btn = QtWidgets.QPushButton("Done")
+		self.done_btn.clicked.connect(self.page3_done_btn)
 		# D) back_btn2
 		self.back_btn2 = QtWidgets.QPushButton("Back")
 		self.back_btn2.clicked.connect(self.page3_back_btn)
@@ -215,17 +215,17 @@ class Window(QtWidgets.QMainWindow):
 		self.list_of_words = self.sentence.split()
 
 		# a list to later refer to (and parse) the dinamically generated QLineEdit in page3
-		self.list_of_inputs = []
+		self.list_of_QLineEdits = []
 
-		# iterate over list_of_words and make a form row (label: entry) for each pos detected
+		# iterate over list_of_words and make a form row (label: field) for each pos detected
 		for word in self.list_of_words:
 			pos_word = self.pos_in_word(self.pos_list, word)
 			if pos_word:
-				entry = QtWidgets.QLineEdit()
-				entry.setMinimumHeight(30)
-				entry.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-				self.form_layout.addRow(pos_word+": ", entry)
-				self.list_of_inputs.append(entry)
+				field = QtWidgets.QLineEdit()
+				field.setMinimumHeight(30)
+				field.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+				self.form_layout.addRow(pos_word+": ", field)
+				self.list_of_QLineEdits.append(field)
 
 		self.pages.setCurrentIndex(2)
 
@@ -241,6 +241,26 @@ class Window(QtWidgets.QMainWindow):
 			widgetToRemove = None
 
 		self.pages.setCurrentIndex(1)
+
+	def page3_done_btn(self):
+		# get entries of user from fields and store in a list
+		list_of_inputs = []
+		for entry in self.list_of_QLineEdits:
+			list_of_inputs.append(entry.text())
+
+		# words of the sentence after processing 
+		list_processed = []
+
+		for index, word in enumerate(self.list_of_words):
+			pos_word = self.pos_in_word(self.pos_list, word)
+			if pos_word:
+				word = word.replace(pos_word, list_of_inputs[0])
+				self.list_of_words[index] = word
+				del list_of_inputs[0]
+		string_processed = " ".join(self.list_of_words)
+
+		self.sentence_label.setText("{ " + string_processed + " }")
+		self.pages.setCurrentIndex(3)
 
 
 	# ________________________________________END_________________________________________
