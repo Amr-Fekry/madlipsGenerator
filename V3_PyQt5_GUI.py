@@ -169,10 +169,14 @@ class Window(QtWidgets.QMainWindow):
 		self.image_label = QtWidgets.QLabel()
 		self.image = QtGui.QPixmap("chandler.png")
 		self.image_label.setPixmap(self.image)
+		# C) play_agin_btn
+		self.playagain_btn = QtWidgets.QPushButton("Play Again")
+		self.playagain_btn.clicked.connect(self.page4_playagian_btn)
 
 		# add widgets/layouts to main layout
 		self.layout4.addWidget(self.sentence_label, 0, 0, QtCore.Qt.AlignCenter)
 		self.layout4.addWidget(self.image_label, 1, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.playagain_btn, 2, 0, QtCore.Qt.AlignCenter)
 
 	# ________________________________________METHODS_________________________________________
 
@@ -262,6 +266,8 @@ class Window(QtWidgets.QMainWindow):
 		self.sentence_label.setText("{ " + string_processed + " }")
 		self.pages.setCurrentIndex(3)
 
+	def page4_playagian_btn(self):
+		self.page3_back_btn()
 
 	# ________________________________________END_________________________________________
 
