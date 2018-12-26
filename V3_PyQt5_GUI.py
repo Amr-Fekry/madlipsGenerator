@@ -22,6 +22,8 @@ class Window(QtWidgets.QMainWindow):
 		self.page_one()
 		self.page_two()
 		self.page_three()
+		self.page_four()
+		self.pages.setCurrentIndex(3)
 
 	# ________________________________________PAGES_________________________________________
 
@@ -152,6 +154,25 @@ class Window(QtWidgets.QMainWindow):
 		self.layout3.addLayout(self.form_layout, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout3.addLayout(self.sub_Hlayout3, 2, 0, QtCore.Qt.AlignCenter)
 
+	def page_four(self):
+		# create a widget for the page and set a layout to it
+		self.page4 = QtWidgets.QWidget()
+		self.pages.addWidget(self.page4) # add to the stacked widget
+		self.layout4 = QtWidgets.QGridLayout()
+		self.layout4.setAlignment(QtCore.Qt.AlignCenter)
+		self.page4.setLayout(self.layout4)
+
+		# make widgets of the page
+		# A) sentence_label
+		self.sentence_label = QtWidgets.QLabel()
+		# B) image_label
+		self.image_label = QtWidgets.QLabel()
+		self.image = QtGui.QPixmap("chandler.png")
+		self.image_label.setPixmap(self.image)
+
+		# add widgets/layouts to main layout
+		self.layout4.addWidget(self.sentence_label, 0, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.image_label, 1, 0, QtCore.Qt.AlignCenter)
 
 	# ________________________________________METHODS_________________________________________
 
@@ -220,6 +241,7 @@ class Window(QtWidgets.QMainWindow):
 			widgetToRemove = None
 
 		self.pages.setCurrentIndex(1)
+
 
 	# ________________________________________END_________________________________________
 
