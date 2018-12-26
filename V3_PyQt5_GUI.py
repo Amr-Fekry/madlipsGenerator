@@ -136,6 +136,7 @@ class Window(QtWidgets.QMainWindow):
 		self.top_label2.setAlignment(QtCore.Qt.AlignCenter)
 		# B) form_layout
 		self.form_layout = QtWidgets.QFormLayout()
+		self.form_layout.setAlignment(QtCore.Qt.AlignCenter)
 		# C) done_btn
 		self.done_btn = QtWidgets.QPushButton("Done")
 		# D) back_btn2
@@ -173,9 +174,38 @@ class Window(QtWidgets.QMainWindow):
 		self.delete_entry.clear()
 
 	def page2_back_btn(self):
+		self.delete_entry.clear()
+		self.add_entry.clear()
 		self.pages.setCurrentIndex(0)
 
+	# helper function for page2_play_btn
+	def pos_in_word(self, parts_of_speech, word):
+		"""returns the part of speech if it is a substring in the word. otherwise, None"""
+		for pos in parts_of_speech:
+			if pos in word:
+				return pos
+		return None
+
 	def page2_play_btn(self):
+		self.sentence = self.sentence_entry.toPlainText()
+		self.sentence_entry.clear()
+		self.delete_entry.clear()
+		self.add_entry.clear()
+		self.list_of_words = self.sentence.split()
+
+		# a list to later refer to (and parse) the dinamically generated QLineEdit in page3
+		self.list_of_inputs = []
+
+		# iterate over list_of_words and make a form row (label: entry) for each pos detected
+		for word in self.list_of_words:
+			pos_word = self.pos_in_word(self.pos_list, word)
+			if pos_word:
+				entry = QtWidgets.QLineEdit()
+				entry.setMinimumHeight(30)
+				entry.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+				self.form_layout.addRow(pos_word+": ", entry)
+				self.list_of_inputs.append(entry)
+
 		self.pages.setCurrentIndex(2)
 
 	def page3_back_btn(self):
