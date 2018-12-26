@@ -209,6 +209,16 @@ class Window(QtWidgets.QMainWindow):
 		self.pages.setCurrentIndex(2)
 
 	def page3_back_btn(self):
+		# clear the form layout
+		while self.form_layout.count():
+			widgetToRemove = self.form_layout.itemAt(0).widget()
+			# remove it from the layout list
+			self.form_layout.removeWidget(widgetToRemove)
+			# schedules object for deletion.
+			widgetToRemove.deleteLater()
+			# set reference to None 
+			widgetToRemove = None
+
 		self.pages.setCurrentIndex(1)
 
 	# ________________________________________END_________________________________________
