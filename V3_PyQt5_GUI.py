@@ -75,18 +75,20 @@ class Window(QtWidgets.QMainWindow):
 		self.pos_screen = QtWidgets.QTextEdit()
 		self.pos_screen.setFixedSize(500, 50)
 		self.pos_list = ["PLACE", "PERSON", "PLURALNOUN", "NOUN"] # initial pos_list
-		self.pos_screen.insertPlainText(" , ".join(self.pos_list)) # show pos_list in pos_screen
+		self.pos_screen.setText(" , ".join(self.pos_list)) # show pos_list in pos_screen
 		self.pos_screen.setReadOnly(True)
 		# C) add_entry
 		self.add_entry = QtWidgets.QLineEdit()
 		self.add_entry.setFixedSize(100, 30)
 		# D) add_btn
 		self.add_btn = QtWidgets.QPushButton("Add")
+		self.add_btn.clicked.connect(self.page2_add_btn)
 		# E) delete_entry
 		self.delete_entry = QtWidgets.QLineEdit()
 		self.delete_entry.setFixedSize(100, 30)
 		# F) delete_btn
 		self.delete_btn = QtWidgets.QPushButton("Delete")
+		self.delete_btn.clicked.connect(self.page2_delete_btn)
 		# G) sub_Hlayout1
 		self.sub_Hlayout1 = QtWidgets.QHBoxLayout()
 		# add C, D, E, F to layout G
@@ -154,6 +156,21 @@ class Window(QtWidgets.QMainWindow):
 
 	def page1_gotit_btn(self):
 		self.pages.setCurrentIndex(1)
+
+	def page2_add_btn(self):
+		self.to_add = self.add_entry.text() # get text from a QLineEdit
+		self.pos_list.append(self.to_add)
+		self.pos_screen.setText(" , ".join(self.pos_list))
+		self.add_entry.clear()
+
+	def page2_delete_btn(self):
+		self.to_delete = self.delete_entry.text()
+		if self.to_delete in self.pos_list:
+			self.pos_list.remove(self.to_delete)
+			self.pos_screen.setText(" , ".join(self.pos_list))
+		else:
+			pass
+		self.delete_entry.clear()
 
 	def page2_back_btn(self):
 		self.pages.setCurrentIndex(0)
