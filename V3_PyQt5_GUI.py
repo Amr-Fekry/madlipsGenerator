@@ -92,18 +92,20 @@ class Window(QtWidgets.QMainWindow):
 		self.sub_Hlayout1.addWidget(self.delete_btn, False, QtCore.Qt.AlignCenter)
 		# H) mid_label
 		self.mid_label = QtWidgets.QLabel("""* to add a word: write the word in the entry field (in all caps), then press Add\n* to delete a word: copy the word from the list and paste it in the entry field, then press Delete\n""")
-		# I) sentence_entry
+		# I) mid_label2
+		self.mid_label2 = QtWidgets.QLabel("""Enter your sentence with the parts of speech below:""")
+		# J) sentence_entry
 		self.sentence_entry = QtWidgets.QTextEdit()
 		self.sentence_entry.setFixedSize(500, 100)
-		# J) play_btn
+		# K) play_btn
 		self.play_btn = QtWidgets.QPushButton("Play")
 		self.play_btn.clicked.connect(self.page2_play_btn)
-		# K) back_btn
+		# L) back_btn
 		self.back_btn = QtWidgets.QPushButton("Back")
 		self.back_btn.clicked.connect(self.page2_back_btn)
-		# L) sub_Hlayout2 
+		# M) sub_Hlayout2 
 		self.sub_Hlayout2 = QtWidgets.QHBoxLayout()
-		# add J, K to the layout L
+		# add K, L to the layout M
 		self.sub_Hlayout2.addWidget(self.play_btn, False, QtCore.Qt.AlignCenter)
 		self.sub_Hlayout2.addWidget(self.back_btn, False, QtCore.Qt.AlignCenter)
 		# # add widgets/layouts to main layout
@@ -111,8 +113,9 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2.addWidget(self.pos_screen, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout1, 2, 0, QtCore.Qt.AlignCenter) # layout
 		self.layout2.addWidget(self.mid_label, 3, 0, QtCore.Qt.AlignCenter)
-		self.layout2.addWidget(self.sentence_entry, 4, 0, QtCore.Qt.AlignCenter)
-		self.layout2.addLayout(self.sub_Hlayout2, 5, 0, QtCore.Qt.AlignCenter) # layout
+		self.layout2.addWidget(self.mid_label2, 4, 0, QtCore.Qt.AlignCenter)
+		self.layout2.addWidget(self.sentence_entry, 5, 0, QtCore.Qt.AlignCenter)
+		self.layout2.addLayout(self.sub_Hlayout2, 6, 0, QtCore.Qt.AlignCenter) # layout
 
 	def page_three(self):
 
@@ -153,19 +156,22 @@ class Window(QtWidgets.QMainWindow):
 		self.layout4.setAlignment(QtCore.Qt.AlignCenter)
 		self.page4.setLayout(self.layout4)
 		# make widgets of the page
-		# A) sentence_label
+		# A) result_label
+		self.result_label = QtWidgets.QLabel("""SENTENCE:""")
+		# B) sentence_label
 		self.sentence_label = QtWidgets.QLabel()
-		# B) image_label
+		# C) image_label
 		self.image_label = QtWidgets.QLabel()
 		self.image = QtGui.QPixmap("chandler.png")
 		self.image_label.setPixmap(self.image)
-		# C) play_agin_btn
+		# D) play_agin_btn
 		self.playagain_btn = QtWidgets.QPushButton("Play Again")
 		self.playagain_btn.clicked.connect(self.page4_playagian_btn)
 		# add widgets/layouts to main layout
-		self.layout4.addWidget(self.sentence_label, 0, 0, QtCore.Qt.AlignCenter)
-		self.layout4.addWidget(self.image_label, 1, 0, QtCore.Qt.AlignCenter)
-		self.layout4.addWidget(self.playagain_btn, 2, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.result_label, 0, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.sentence_label, 1, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.image_label, 2, 0, QtCore.Qt.AlignCenter)
+		self.layout4.addWidget(self.playagain_btn, 3, 0, QtCore.Qt.AlignCenter)
 
 	# ________________________________________METHODS_________________________________________
 
