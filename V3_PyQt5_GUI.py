@@ -1,6 +1,5 @@
 import sys
 from PyQt5 import QtWidgets, QtGui, QtCore
-import sip
 
 
 class Window(QtWidgets.QMainWindow):
@@ -15,14 +14,11 @@ class Window(QtWidgets.QMainWindow):
 
 		# add a stacked widget for multiple pages
 		self.pages = QtWidgets.QStackedWidget()
-
 		# set the stacked widget as the central
 		self.setCentralWidget(self.pages)
 
+		# load (and show) page1
 		self.page_one()
-		self.page_two()
-		self.page_three()
-		self.page_four()
 
 	# ________________________________________PAGES_________________________________________
 
@@ -34,7 +30,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout = QtWidgets.QGridLayout()
 		self.layout.setAlignment(QtCore.Qt.AlignCenter) # alignment of cells inside the layout. Center = (HCenter + VCenter)
 		self.page1.setLayout(self.layout)
-
 		# make widgets of the page
 		# A) intro_label1
 		self.intro_label1 = QtWidgets.QLabel("""Welcome to Madlips Generator game\n\nIt takes two players to play this game: a 'game designer' and a 'game player'\n""")
@@ -49,15 +44,14 @@ class Window(QtWidgets.QMainWindow):
 		self.gotit_btn = QtWidgets.QPushButton("Got it")
 		self.gotit_btn.clicked.connect(self.page1_gotit_btn)
 		#self.gotit_btn.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-
-		# # add widgets/layouts to main layout
+		# add widgets/layouts to main layout
 		self.layout.addWidget(self.intro_label1, 0, 0, QtCore.Qt.AlignCenter) 
 		self.layout.addWidget(self.intro_label2, 1, 0, QtCore.Qt.AlignCenter)
 		self.layout.addWidget(self.gotit_btn, 2, 0, QtCore.Qt.AlignCenter) # for grid layout: (widget, row, column, alignment in cell)
-		
 		# show page1
 		self.pages.setCurrentIndex(0)
-
+		# load page2
+		self.page_two()
 
 	def page_two(self):
 
@@ -67,7 +61,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2 = QtWidgets.QGridLayout()
 		self.layout2.setAlignment(QtCore.Qt.AlignCenter)
 		self.page2.setLayout(self.layout2)
-
 		# make widgets of the page
 		# A) top_label
 		self.top_label = QtWidgets.QLabel("""Designer turn\n\nHere is the current list of parts-of-speech that you can use:\n""")
@@ -121,7 +114,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout2.addWidget(self.sentence_entry, 4, 0, QtCore.Qt.AlignCenter)
 		self.layout2.addLayout(self.sub_Hlayout2, 5, 0, QtCore.Qt.AlignCenter) # layout
 
-
 	def page_three(self):
 
 		# create a widget for the page and set a layout to it
@@ -130,7 +122,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout3 = QtWidgets.QGridLayout()
 		self.layout3.setAlignment(QtCore.Qt.AlignCenter)
 		self.page3.setLayout(self.layout3)
-
 		# make widgets of the page
 		# A) top_label2
 		self.top_label2 = QtWidgets.QLabel("""Player turn\n\nGive an example for each part of speech below:\n""")
@@ -161,7 +152,6 @@ class Window(QtWidgets.QMainWindow):
 		self.layout4 = QtWidgets.QGridLayout()
 		self.layout4.setAlignment(QtCore.Qt.AlignCenter)
 		self.page4.setLayout(self.layout4)
-
 		# make widgets of the page
 		# A) sentence_label
 		self.sentence_label = QtWidgets.QLabel()
@@ -172,7 +162,6 @@ class Window(QtWidgets.QMainWindow):
 		# C) play_agin_btn
 		self.playagain_btn = QtWidgets.QPushButton("Play Again")
 		self.playagain_btn.clicked.connect(self.page4_playagian_btn)
-
 		# add widgets/layouts to main layout
 		self.layout4.addWidget(self.sentence_label, 0, 0, QtCore.Qt.AlignCenter)
 		self.layout4.addWidget(self.image_label, 1, 0, QtCore.Qt.AlignCenter)
@@ -181,7 +170,10 @@ class Window(QtWidgets.QMainWindow):
 	# ________________________________________METHODS_________________________________________
 
 	def page1_gotit_btn(self):
+		# show page2
 		self.pages.setCurrentIndex(1)
+		# load page3
+		self.page_three()
 
 	def page2_add_btn(self):
 		self.to_add = self.add_entry.text() # get text from a QLineEdit
@@ -231,7 +223,10 @@ class Window(QtWidgets.QMainWindow):
 				self.form_layout.addRow(pos_word+": ", field)
 				self.list_of_QLineEdits.append(field)
 
+		# show page3
 		self.pages.setCurrentIndex(2)
+		# load page4
+		self.page_four()
 
 	def page3_back_btn(self):
 		# clear the form layout
@@ -264,6 +259,7 @@ class Window(QtWidgets.QMainWindow):
 		string_processed = " ".join(self.list_of_words)
 
 		self.sentence_label.setText("{ " + string_processed + " }")
+		# show page4
 		self.pages.setCurrentIndex(3)
 
 	def page4_playagian_btn(self):
